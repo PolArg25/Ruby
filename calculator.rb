@@ -11,12 +11,11 @@ OPERATIONS = {
 
 def get_number_input
   loop do
-    print "Enter a number: "
+    print "Enter a number (or type 'exit' to quit): "
     input = gets.chomp
+    return nil if input.downcase == "exit"  # Exit the program if input is "exit"
+    
     return input.to_f if valid_number?(input)
-
-    puts "Invalid input. Please enter a valid number."
-  end
 end
 
 def valid_number?(input)
@@ -45,6 +44,8 @@ def start_calculator
   puts "Welcome to the Hash-Based Ruby Calculator!"
   loop do
     num1 = get_number_input
+    break if num1.nil?  # Exit if user typed 'exit'
+
     operator = get_operator_input
     break if operator == "exit"
 
@@ -52,6 +53,7 @@ def start_calculator
       result = calculate(num1, operator)
     else
       num2 = get_number_input
+      break if num2.nil?  # Exit if user typed 'exit'
       result = calculate(num1, operator, num2)
     end
 
